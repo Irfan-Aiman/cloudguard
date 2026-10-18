@@ -4,32 +4,7 @@ CloudGuard is a lightweight Cloud Security Posture Management (CSPM) and threat 
 
 ## Architecture
 
-\`\`\`text
-                         AWS ACCOUNT
-                              │
-             ┌────────────────┼────────────────┐
-             │                │                │
-             ▼                ▼                ▼
-            IAM               S3              EC2
-             │                │         (Security Groups)
-             └────────────────┼────────────────┘
-                              │
-                              ▼
-                         CloudTrail
-                              │
-                              ▼
-                     Python Engine (Boto3)
-                              │
-              ┌───────────────┴───────────────┐
-              ▼                               ▼
-       Posture Scanner               Activity Monitor
-       - S3 Public Blocks            - Unauthorized Ingress
-       - Encryption & Versioning     - Defense Evasion
-              │                               │
-              └───────────────┬───────────────┘
-                              ▼
-                 Streamlit Security Console
-\`\`\`
+![CloudGuard Architecture](architecture.jpg)
 
 ## Key Capabilities
 
@@ -51,39 +26,23 @@ CloudGuard is a lightweight Cloud Security Posture Management (CSPM) and threat 
 | **MEDIUM** | Missing baseline security controls | Bucket default encryption disabled, console login without MFA |
 | **LOW** | Operational hygiene risks | Bucket versioning disabled |
 
+## Live Detection & Remediation Verification
+
+CloudGuard was validated using controlled security scenarios to verify end-to-end detection and resolution tracking.
+
+### 1. Misconfiguration Detected (Vulnerable State)
+When an S3 bucket (`company-data-cloudguard-782`) has its Block Public Access settings disabled, the scanner immediately identifies the exposure and flags it with `HIGH` severity:
+
+![Misconfiguration Detected](output-detected.jpg)
+
+### 2. Post-Remediation Verification (Compliant State)
+Once Block Public Access is re-enabled across all settings, the live scan re-evaluates the environment and verifies all resources conform to baseline security controls:
+
+![Clean Baseline](output-resolved.jpg)
+
 ## Installation & Setup
 
 1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/<your-username>/cloudguard.git
+   ```bash
+   git clone [https://github.com/Irfan-Aiman/cloudguard.git](https://github.com/Irfan-Aiman/cloudguard.git)
    cd cloudguard
-   \`\`\`
-
-2. Create a virtual environment and install dependencies:
-   \`\`\`bash
-   python -m venv venv
-   .\venv\Scripts\Activate.ps1
-   pip install -r requirements.txt
-   \`\`\`
-
-3. Configure AWS CLI credentials:
-   \`\`\`bash
-   aws configure
-   # Set default region to us-east-2
-   \`\`\`
-
-4. Run the automated test suite:
-   \`\`\`bash
-   pytest -v
-   \`\`\`
-
-5. Launch the security dashboard:
-   \`\`\`bash
-   streamlit run dashboard/app.py
-   \`\`\`
-
-## Security Design
-
-- **Least Privilege:** The scanner executes using dedicated read-only identities (`SecurityAudit` permissions) and requires no administrative write access.
-- **Credential Safety:** Uses AWS credential provider chains via Boto3; zero static secrets or tokens are stored in the codebase.
-\`\`\`
