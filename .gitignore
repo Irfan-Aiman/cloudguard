@@ -1,0 +1,19 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables & cloud credentials
+.env
+.aws/
+credentials
+*.pem
+
+# Streamlit local state
+.streamlit/
