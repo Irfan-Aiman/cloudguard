@@ -4,7 +4,7 @@ CloudGuard is a lightweight Cloud Security Posture Management (CSPM) and threat 
 
 ## Architecture
 
-![CloudGuard Architecture](architecture.jpg)
+![CloudGuard Architecture](architecture.jpeg)
 
 ## Key Capabilities
 
