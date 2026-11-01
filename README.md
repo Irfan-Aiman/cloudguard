@@ -1,48 +1,46 @@
-# CloudGuard: AWS Security Posture & Activity Monitoring Platform
-
-CloudGuard is a lightweight Cloud Security Posture Management (CSPM) and threat detection tool designed to identify misconfigurations across core AWS services and monitor suspicious management activity using AWS CloudTrail.
-
-## Architecture
-
-![CloudGuard Architecture](architecture.jpeg)
-
-## Key Capabilities
-
-1. **Posture Assessment (CSPM Engine)**
-   - **S3 Storage:** Scans buckets for missing public access blocks, disabled server-side encryption, and versioning protection.
-   - **Network Exposure:** Identifies security groups allowing open inbound traffic (`0.0.0.0/0`) on sensitive administrative ports (SSH 22, RDP 3389).
-
-2. **Runtime Activity Detection**
-   - **Defense Evasion:** Identifies attempts to disable or alter audit trails (`StopLogging`, `DeleteTrail`).
-   - **Identity Persistence:** Detects privileged IAM identity and credential generation (`CreateUser`, `CreateAccessKey`).
-   - **Network Tampering:** Flags real-time firewall ingress modifications (`AuthorizeSecurityGroupIngress`).
-
-## Risk Model
-
-| Severity | Definition | Example Findings |
-|---|---|---|
-| **CRITICAL** | Direct exposure or audit blinding | Trail logging disabled, public bucket containing sensitive assets |
-| **HIGH** | Significant attack surface expansion | Unrestricted ingress on administrative ports, IAM persistence actions |
-| **MEDIUM** | Missing baseline security controls | Bucket default encryption disabled, console login without MFA |
-| **LOW** | Operational hygiene risks | Bucket versioning disabled |
-
-## Live Detection & Remediation Verification
-
-CloudGuard was validated using controlled security scenarios to verify end-to-end detection and resolution tracking.
-
-### 1. Misconfiguration Detected (Vulnerable State)
-When an S3 bucket (`company-data-cloudguard-782`) has its Block Public Access settings disabled, the scanner immediately identifies the exposure and flags it with `HIGH` severity:
-
-![Misconfiguration Detected](output-detected.jpg)
-
-### 2. Post-Remediation Verification (Compliant State)
-Once Block Public Access is re-enabled across all settings, the live scan re-evaluates the environment and verifies all resources conform to baseline security controls:
-
-![Clean Baseline](output-resolved.jpg)
-
-## Installation & Setup
-
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/Irfan-Aiman/cloudguard.git](https://github.com/Irfan-Aiman/cloudguard.git)
-   cd cloudguard
+# 👋 Irfan Aiman — Project Portfolio
+ 
+Bachelor of Information Technology (Hons) student at **Universiti Teknologi PETRONAS (UTP)**, focused on **cloud engineering, cloud security and data analytics**.
+ 
+This repository collects the projects I've built to put my coursework and certifications into practice. Each project folder has its own README with the architecture, screenshots and what I learned.
+ 
+---
+ 
+## ☁️ Cloud & DevOps
+ 
+| Project | What it does | Tech | Links |
+|---|---|---|---|
+| **[Automated AWS Infrastructure Provisioning with CI/CD](Automated%20AWS%20Infrastructure%20Provisioning%20with%20CICD)** | Provisions a VPC, public subnet, security group and an EC2 web server from code. Every push to `main` runs `terraform plan` and `apply` automatically. | Terraform, GitHub Actions, AWS (VPC, EC2) | [Source code](https://github.com/Irfan-Aiman/terraform-aws-project) |
+| **[Serverless BMI Calculator](Serverless-BMI-Calculator)** | Serverless web app that calculates BMI and stores each result in DynamoDB. | AWS Amplify, API Gateway, Lambda (Python), DynamoDB, IAM | [Live demo](https://staging.d3p6yi8jjf7r3s.amplifyapp.com/) |
+ 
+## 🛡️ Cloud Security
+ 
+| Project | What it does | Tech | Links |
+|---|---|---|---|
+| **CloudGuard** | Scans S3 buckets for public access, encryption and versioning gaps. Monitors CloudTrail for risky activity such as logging being disabled, new IAM users or access keys, firewall changes and console logins without MFA. Findings are ranked by severity in a Streamlit dashboard. | Python, boto3, AWS S3, CloudTrail, Streamlit, pytest | [Source code](https://github.com/Irfan-Aiman/cloudguard) |
+ 
+## 📊 Data Analytics & Business Intelligence
+ 
+| Project | What it does | Tech | Links |
+|---|---|---|---|
+| **[Executive Retail & Profitability Analytics](Executive%20Retail%20%26%20Profitability%20Analytics_power%20BI)** | End-to-end analysis of $2.3M in retail sales, from cleaning to dashboard. Shows that discounts above 20% wipe out profit and that Furniture barely breaks even. | Python (pandas), SQL (SQLite), Power BI | — |
+| **[QR-Based Deployment Tracking System](Qr-Based_Deployment_Tracking_System_SIP)** | Industrial project at CTC Global Sdn Bhd. Replaced manual spreadsheet logging of IT device deployments with a QR-scanning mobile app and a real-time Power BI dashboard. | Power Apps, Power Fx, Excel Online, Power BI | — |
+ 
+## 🤖 Generative AI
+ 
+| Project | What it does | Tech | Links |
+|---|---|---|---|
+| **[Student Budget Planner AI](Student-Budget-Planner-AI)** | AI budgeting assistant for Malaysian students (RM). Calculates daily and weekly spending limits, flags overspending and answers "can I afford this?" questions. | AWS PartyRock, prompt engineering | [Live demo](https://partyrock.aws/u/JimmyNeutron/L1vaUmhJQ/Student-Budget-Planner-for-Malaysian-Students) |
+ 
+---
+ 
+## 🧰 Skills at a Glance
+ 
+- **Cloud:** AWS (EC2, VPC, Lambda, API Gateway, DynamoDB, S3, CloudTrail, IAM, Amplify)
+- **Infrastructure as Code & CI/CD:** Terraform, GitHub Actions
+- **Languages:** Python, SQL, HTML/CSS/JavaScript, Bash
+- **Data & BI:** pandas, Power BI (DAX), Power Query, Jupyter
+- **Low-code & AI:** Microsoft Power Platform, AWS PartyRock, prompt engineering
+## 📫 Contact
+ 
+[GitHub](https://github.com/Irfan-Aiman)
